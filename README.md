@@ -37,3 +37,19 @@ General solution
 * Search for a small pattern in each potential copy range
 * Rule out peverse cases like all blanks
 * Grow search region with simple comparison
+* <b>Need a pattern which cannot overlap !!!</b>
+** e.g. 123456
+** Not 121212
+If this pattern is long enough then we can efficiently check for potential repeats
+by finding all non-overlapping occurences of pattern within potential copy regions
+
+Algorithm
+---------
+    Test has length N
+    Pattern has length M
+
+    For all potential number of copies K (integral factors of number of pages > 1) 
+        K copies
+        Copy has length C = N/K
+        Find at least one M in [C*i, C*(i+1)] for i=0,K-1 
+        Check offset of first M within each copy to check that it is within a fixed tolerance
