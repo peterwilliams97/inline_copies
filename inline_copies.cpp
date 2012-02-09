@@ -267,11 +267,12 @@ BinString make_copies2(int num_pages, int num_copies, size_t copy_size) {
     return bin_string;
 }
 
-struct Logger {
+class Logger {
     FILE* _f;
+public:
     Logger(const char *filename) {
         _f = fopen(filename, "wt");
-         fprintf(_f, "%5s, %4s, %8s, %4s %6s %6s\n", "num_pages", "num_copies", "copy_size (bytes)", "total_size (MB)", "duration (sec)", "speed (MB/sec)");
+         fprintf(_f, "%5s, %4s, %8s, %4s, %6s, %6s\n", "num_pages", "num_copies", "copy_size (bytes)", "total_size (MB)", "duration (sec)", "speed (MB/sec)");
     }
     ~Logger() {
         fclose(_f);
@@ -380,7 +381,7 @@ int main() {
     num_copies = 2;
     copy_size = 100*1000*1000/num_copies;
        
-    run_test(num_pages, num_copies, copy_size, &test_duration);
+   // run_test(num_pages, num_copies, copy_size, &test_duration);
     
 
     int pages_per_copy = 1;

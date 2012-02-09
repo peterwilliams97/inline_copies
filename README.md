@@ -1,3 +1,5 @@
+Observations
+-----------
 Need to matches on all offsets. Not skip
     Required because of patterns that can overlap
         Trivial case is a blank file
@@ -24,5 +26,14 @@ BM matching speed is fast if pattern is a small fraction of length of text.
            
 
 Scan speed ranges from 4MB/sec to 900 MB/sec depending on the pattern/text size ratio
+There is a range from 100MB/sec to 900 MB/sec for small pattern  (<50k) 
+When patterns get large and the numb of copies is low, the scan speed drops
 
-           
+Searching potential number of copies is too slow:
+    Re-do BM too many times
+    
+General solution
+----------------
+* Search for a small pattern in each potential copy range
+* Rule out peverse cases like all blanks
+* Grow search region with simple comparison
