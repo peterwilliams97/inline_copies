@@ -12,9 +12,10 @@ class RegexResults;
 class BinString
 {
     const size_t _len;
-    const byte *_data;
+    byte *_data;
 public:
     BinString();
+    BinString(size_t len);
     BinString(const byte *data, size_t len);
     BinString(const BinString &b);
  
@@ -22,7 +23,7 @@ public:
         delete[] _data; 
     }
     size_t get_len() const  { return _len; }
-    const byte *get_data() const { return _data; }
+    byte *get_data() const { return _data; }
     const std::vector<byte> get_as_vector() const;
 };
 

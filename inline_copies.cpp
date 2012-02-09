@@ -214,9 +214,11 @@ int find_copies(const BinString &input, int num_pages) {
 /*
  * Unit run_test
  */
-BinString make_copies(int num_copies, size_t copy_size) {
+const BinString *make_copies(int num_copies, size_t copy_size) {
     size_t num_bytes = num_copies * copy_size;
-    byte *data = new byte[num_bytes];
+    BinString *bin_string = new BinString(num_bytes);
+    byte *data = bin_string->get_data();
+    
     unsigned int k = 0;
     for (size_t i = 0; i < copy_size; i++) {
         data[i] = k % 256;
@@ -228,10 +230,8 @@ BinString make_copies(int num_copies, size_t copy_size) {
         memcpy(data + n * copy_size, data, copy_size);
         show_data(data, num_bytes, "updated");
     }
-
-    BinString bin_string = BinString(data, num_bytes);
-    delete[] data;
-    show_data(bin_string.get_data(), bin_string.get_len(), "bin_string");
+   
+    show_data(bin_string->get_data(), bin_string->get_len(), "bin_string");
     return bin_string;
 }
 
@@ -296,8 +296,8 @@ bool run_test(int num_pages, int num_copies, size_t copy_size, double *test_dura
     // Round up copy to next multiple of page per copy
     copy_size = ((copy_size + pages_copy - 1)/pages_copy) * pages_copy;
    // BinString bin_string = make_copies2(num_pages, num_copies, copy_size);
-    BinString bin_string = make_copies(num_copies, copy_size);
-  
+    const BinString *bin_string_ptr = make_copies(num_copies, copy_size);
+    const BinString &bin_string = *bin_string_ptr;
   
     show_data(bin_string.get_data(), bin_string.get_len(), "main");
     cout << "---------------" << endl;
@@ -342,6 +342,8 @@ bool run_test(int num_pages, int num_copies, size_t copy_size, double *test_dura
             << ",copy_size=" << (int)copy_size << endl;
         cerr << "error!!!" << endl;
     }
+
+    delete bin_string_ptr;
     return ok;
 
 }
@@ -361,6 +363,10 @@ int main() {
 
     run_test(40, 20, 50*1000, &test_duration);
     run_test(400, 200, 50*1000, &test_duration);
+    run_test(400, 200, 500*1000, &test_duration);
+    run_test(4000, 2000, 50*1000, &test_duration);
+    run_test(400000, 200000, 5*100, &test_duration);
+    run_test(400000, 200000, 5*1000, &test_duration);
     run_test(40, 20, 500*1000, &test_duration);
     run_test(34, 17, 500*1000, &test_duration);
     run_test(51, 17, 500*1000, &test_duration);

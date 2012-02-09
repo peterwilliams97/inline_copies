@@ -3,7 +3,8 @@
 
 using namespace std;
 
-static const byte *dup_data(const byte *data, size_t len)
+
+static byte *dup_data(const byte *data, size_t len)
 {
     byte *dup = new byte[len];
     return (byte *)memcpy(dup, data, len*sizeof(byte));
@@ -21,6 +22,12 @@ BinString::BinString(const byte *data, size_t len):
             cerr << "Cannot happen!" << endl;
         }
     }
+}
+
+BinString::BinString(size_t len):
+_len(len) 
+{
+   _data = new byte[len];
 }
 
 BinString::BinString(const BinString &b):
