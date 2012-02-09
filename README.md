@@ -38,9 +38,8 @@ General solution
 * Rule out peverse cases like all blanks
 * Grow search region with simple comparison
 * <b>Need a pattern which cannot overlap !!!</b>
-*    e.g. 123456
-*    Not 121212
-
+    e.g. 123456
+    Not 121212
     If this pattern is long enough then we can efficiently check for potential repeats
 by finding all non-overlapping occurences of pattern within potential copy regions
 
