@@ -371,7 +371,7 @@ int main() {
     run_test(34, 17, 500*1000, &test_duration);
     run_test(51, 17, 500*1000, &test_duration);
     run_test(68, 17, 500*1000, &test_duration);
-    return 0;
+
 
     // Performance run_test
     num_pages = 2*3*5*7*8;   
@@ -382,7 +382,6 @@ int main() {
        
     run_test(num_pages, num_copies, copy_size, &test_duration);
     
-
 
     int pages_per_copy = 1;
     int max_pages_per_copy = 100;
